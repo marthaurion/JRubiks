@@ -27,18 +27,10 @@ public class Face3 {
 		
 		//populate based on which side is input
 		for(int i = 0; i < 3; i++) {
-			if(side == FaceName.UP) {
-				sides[i] = face[0][i];
-			}
-			else if(side == FaceName.DOWN) {
-				sides[i] = face[2][i];
-			}
-			else if(side == FaceName.LEFT) {
-				sides[i] = face[i][0];
-			}
-			else if(side == FaceName.RIGHT) {
-				sides[i] = face[i][2];
-			}
+			if(side == FaceName.UP) sides[i] = face[0][i];
+			else if(side == FaceName.DOWN) sides[i] = face[2][i];
+			else if(side == FaceName.LEFT) sides[i] = face[i][0];
+			else if(side == FaceName.RIGHT) sides[i] = face[i][2];
 			else {
 				System.out.println("SOMETHING WENT WRONG.");
 				System.exit(0);
@@ -51,18 +43,10 @@ public class Face3 {
 	public void receiveSide(Color[] cols, FaceName side) {
 		if(cols.length != 3) return; //some error checking
 		for(int i = 0; i < 3; i++) {
-			if(side == FaceName.UP) {
-				face[0][i] = cols[i];
-			}
-			else if(side == FaceName.DOWN) {
-				face[2][i] = cols[i];
-			}
-			else if(side == FaceName.LEFT) {
-				face[i][0] = cols[i];
-			}
-			else if(side == FaceName.RIGHT) {
-				face[i][2] = cols[i];
-			}
+			if(side == FaceName.UP) face[0][i] = cols[i];
+			else if(side == FaceName.DOWN) face[2][i] = cols[i];
+			else if(side == FaceName.LEFT) face[i][0] = cols[i];
+			else if(side == FaceName.RIGHT) face[i][2] = cols[i];
 			else {
 				System.out.println("SOMETHING WENT WRONG.");
 				System.exit(0);
