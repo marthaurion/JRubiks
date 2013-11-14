@@ -52,10 +52,10 @@ public class Cube3 {
 		Color[] temp;
 		cube[0].rotate();
 		temp = cube[2].sendSide(FaceName.UP);
-		cube[2].receiveSide(cube[5].sendSide(FaceName.UP), FaceName.UP);
-		cube[5].receiveSide(cube[3].sendSide(FaceName.UP), FaceName.UP);
-		cube[3].receiveSide(cube[4].sendSide(FaceName.UP), FaceName.UP);
-		cube[4].receiveSide(temp, FaceName.UP);
+		cube[2].receiveSide(cube[5].sendSide(FaceName.UP), FaceName.UP, 0);
+		cube[5].receiveSide(cube[3].sendSide(FaceName.UP), FaceName.UP, 0);
+		cube[3].receiveSide(cube[4].sendSide(FaceName.UP), FaceName.UP, 0);
+		cube[4].receiveSide(temp, FaceName.UP, 0);
 	}
 	
 	//turns the front face clockwise
@@ -64,10 +64,10 @@ public class Cube3 {
 		cube[2].rotate();
 		
 		temp = cube[0].sendSide(FaceName.DOWN);
-		cube[0].receiveSide(cube[4].sendSide(FaceName.RIGHT), FaceName.DOWN);
-		cube[4].receiveSide(cube[1].sendSide(FaceName.DOWN), FaceName.RIGHT);
-		cube[1].receiveSide(cube[5].sendSide(FaceName.LEFT), FaceName.DOWN);
-		cube[5].receiveSide(temp, FaceName.LEFT);
+		cube[0].receiveSide(cube[4].sendSide(FaceName.RIGHT), FaceName.DOWN, -1);
+		cube[4].receiveSide(cube[1].sendSide(FaceName.DOWN), FaceName.RIGHT, -1);
+		cube[1].receiveSide(cube[5].sendSide(FaceName.LEFT), FaceName.DOWN, 0);
+		cube[5].receiveSide(temp, FaceName.LEFT, 0);
 	}
 	
 	//turns the left face clockwise
@@ -76,10 +76,10 @@ public class Cube3 {
 		cube[4].rotate();
 		
 		temp = cube[0].sendSide(FaceName.LEFT);
-		cube[0].receiveSide(cube[3].sendSide(FaceName.RIGHT), FaceName.LEFT);
-		cube[3].receiveSide(cube[1].sendSide(FaceName.RIGHT), FaceName.RIGHT);
-		cube[1].receiveSide(cube[2].sendSide(FaceName.LEFT), FaceName.RIGHT);
-		cube[2].receiveSide(temp, FaceName.LEFT);
+		cube[0].receiveSide(cube[3].sendSide(FaceName.RIGHT), FaceName.LEFT, -1);
+		cube[3].receiveSide(cube[1].sendSide(FaceName.RIGHT), FaceName.RIGHT, 0);
+		cube[1].receiveSide(cube[2].sendSide(FaceName.LEFT), FaceName.RIGHT, -1);
+		cube[2].receiveSide(temp, FaceName.LEFT, 0);
 	}
 	
 	//turns the right face clockwise
@@ -88,10 +88,10 @@ public class Cube3 {
 		cube[5].rotate();
 		
 		temp = cube[0].sendSide(FaceName.RIGHT);
-		cube[0].receiveSide(cube[2].sendSide(FaceName.RIGHT), FaceName.RIGHT);
-		cube[2].receiveSide(cube[1].sendSide(FaceName.LEFT), FaceName.RIGHT);
-		cube[1].receiveSide(cube[3].sendSide(FaceName.LEFT), FaceName.LEFT);
-		cube[3].receiveSide(temp, FaceName.LEFT);
+		cube[0].receiveSide(cube[2].sendSide(FaceName.RIGHT), FaceName.RIGHT, 0);
+		cube[2].receiveSide(cube[1].sendSide(FaceName.LEFT), FaceName.RIGHT, -1);
+		cube[1].receiveSide(cube[3].sendSide(FaceName.LEFT), FaceName.LEFT, 0);
+		cube[3].receiveSide(temp, FaceName.LEFT, -1);
 	}
 	
 	//turns the back face clockwise
@@ -100,10 +100,10 @@ public class Cube3 {
 		cube[3].rotate();
 		
 		temp = cube[0].sendSide(FaceName.UP);
-		cube[0].receiveSide(cube[5].sendSide(FaceName.RIGHT), FaceName.UP);
-		cube[5].receiveSide(cube[1].sendSide(FaceName.UP), FaceName.RIGHT);
-		cube[1].receiveSide(cube[4].sendSide(FaceName.LEFT), FaceName.UP);
-		cube[4].receiveSide(temp, FaceName.LEFT);
+		cube[0].receiveSide(cube[5].sendSide(FaceName.RIGHT), FaceName.UP, 0);
+		cube[5].receiveSide(cube[1].sendSide(FaceName.UP), FaceName.RIGHT, 0);
+		cube[1].receiveSide(cube[4].sendSide(FaceName.LEFT), FaceName.UP, -1);
+		cube[4].receiveSide(temp, FaceName.LEFT, -1);
 	}
 	
 	//turns the down face clockwise
@@ -112,10 +112,10 @@ public class Cube3 {
 		cube[1].rotate();
 		
 		temp = cube[2].sendSide(FaceName.DOWN);
-		cube[2].receiveSide(cube[4].sendSide(FaceName.DOWN), FaceName.DOWN);
-		cube[4].receiveSide(cube[3].sendSide(FaceName.DOWN), FaceName.DOWN);
-		cube[3].receiveSide(cube[5].sendSide(FaceName.DOWN), FaceName.DOWN);
-		cube[5].receiveSide(temp, FaceName.DOWN);
+		cube[2].receiveSide(cube[4].sendSide(FaceName.DOWN), FaceName.DOWN, 0);
+		cube[4].receiveSide(cube[3].sendSide(FaceName.DOWN), FaceName.DOWN, 0);
+		cube[3].receiveSide(cube[5].sendSide(FaceName.DOWN), FaceName.DOWN, 0);
+		cube[5].receiveSide(temp, FaceName.DOWN, 0);
 	}
 	
 	public void printCube() {

@@ -40,13 +40,22 @@ public class Face3 {
 	}
 	
 	//input should be an array of size 3 and the side which will be replaced by this array
-	public void receiveSide(Color[] cols, FaceName side) {
+	public void receiveSide(Color[] cols, FaceName side, int x) {
 		if(cols.length != 3) return; //some error checking
+		
+		Color[] colors = new Color[3];
+		if(x == -1) {
+			colors[2] = cols[0];
+			colors[0] = cols[2];
+			colors[1] = cols[1];
+		}
+		else colors = cols;
+		
 		for(int i = 0; i < 3; i++) {
-			if(side == FaceName.UP) face[0][i] = cols[i];
-			else if(side == FaceName.DOWN) face[2][i] = cols[i];
-			else if(side == FaceName.LEFT) face[i][0] = cols[i];
-			else if(side == FaceName.RIGHT) face[i][2] = cols[i];
+			if(side == FaceName.UP) face[0][i] = colors[i];
+			else if(side == FaceName.DOWN) face[2][i] = colors[i];
+			else if(side == FaceName.LEFT) face[i][0] = colors[i];
+			else if(side == FaceName.RIGHT) face[i][2] = colors[i];
 			else {
 				System.out.println("SOMETHING WENT WRONG.");
 				System.exit(0);
