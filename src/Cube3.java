@@ -19,12 +19,18 @@ public class Cube3 {
 	}
 	
 	/* Takes a string with an algorithm and runs it on the cube.
-	 * Each move is delimited with a space and 2 and ' (apostrophe)
-	 * are used to indicate turning a face twice or turning counter-clockwise.
+	 * Each move is delimited by some input string.
+	 * 2 and ' (apostrophe) are used to indicate
+	 * turning a face twice or turning counter-clockwise.
 	 * Standard notation is used (F B U D R L)
 	 */
+	
 	public void runAlg(String alg) {
-		String[] toks = alg.split(" ");
+		runAlg(alg, " ");
+	}
+	
+	public void runAlg(String alg, String del) {
+		String[] toks = alg.split(del);
 		String temp;
 		FaceName face;
 		for(int i = 0; i < toks.length; i++) {
