@@ -13,12 +13,13 @@ Things that have been done:
 - The cube can take a string input and run those moves on the cube.
 - String input can be delimited by anything. Default is space.
 - Cube prints out faces
+- Generalized functions for multiple sizes. Only tested on 3x3.
 
 
 Things to be done:
 - Allow for cube rotations.
 - Create a scrambler.
 - Find a more elegant way to turn the faces that doesn't involve hard-coding things if possible.
-- Generalize the functions to work for all 6-sided cubes (4x4, 5x5, 2x2, etc.).
+- Test generalized functions on higher-order cubes (4x4, 5x5, 2x2, etc.).
 - Create a more visual representation of the cube.
 - Allow different types of delimiters for algorithm input.
