@@ -1,20 +1,20 @@
 
-public class Cube3 {
-	private Face3[] cube;
+public class Cube {
+	private Face[] cube;
 	
-	public Cube3(int n) {
-		cube = new Face3[6];
+	public Cube(int n) {
+		cube = new Face[6];
 		
 		//manually code values for faces so the relationships of colors is right
-		cube[0] = new Face3(Color.WHITE, FaceName.UP, n);
-		cube[1] = new Face3(Color.YELLOW, FaceName.DOWN, n);
-		cube[2] = new Face3(Color.GREEN, FaceName.FRONT, n);
-		cube[3] = new Face3(Color.BLUE, FaceName.BACK, n);
-		cube[4] = new Face3(Color.ORANGE, FaceName.LEFT, n);
-		cube[5] = new Face3(Color.RED, FaceName.RIGHT, n);
+		cube[0] = new Face(Color.WHITE, FaceName.UP, n);
+		cube[1] = new Face(Color.YELLOW, FaceName.DOWN, n);
+		cube[2] = new Face(Color.GREEN, FaceName.FRONT, n);
+		cube[3] = new Face(Color.BLUE, FaceName.BACK, n);
+		cube[4] = new Face(Color.ORANGE, FaceName.LEFT, n);
+		cube[5] = new Face(Color.RED, FaceName.RIGHT, n);
 	}
 	
-	public Face3 getFace(FaceName fn) {
+	public Face getFace(FaceName fn) {
 		return cube[fn.getValue()];
 	}
 	

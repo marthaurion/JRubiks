@@ -3,7 +3,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-//		Face3 test = new Face3(Color.RED, FaceName.UP, 4);
+//		Face test = new Face(Color.RED, FaceName.UP, 4);
 //		test.face = new Color[4][4];
 //		test.face[0][0] = Color.WHITE;
 //		test.face[1][0] = Color.YELLOW;
@@ -27,7 +27,7 @@ public class Test {
 //		test.rotate();
 //		test.printFace();
 		
-		Cube3 cube = new Cube3(4);
+		Cube cube = new Cube(4);
 		cube.runAlg("R U R\' U R U2 R\'");
 		cube.printCube();
 	}

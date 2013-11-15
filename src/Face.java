@@ -1,12 +1,12 @@
 
-public class Face3 {
+public class Face {
 	public Color[][] face;
 	private int N;
 	private FaceName label;
 	
 	
 	//for now, assume faces are squares
-	public Face3(Color c, FaceName f, int n) {
+	public Face(Color c, FaceName f, int n) {
 		N = n;
 		face = new Color[N][N];
 		
