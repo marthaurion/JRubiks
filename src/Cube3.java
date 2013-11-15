@@ -18,8 +18,53 @@ public class Cube3 {
 		return cube[fn.getValue()];
 	}
 	
+	/* Takes a string with an algorithm and runs it on the cube.
+	 * Each move is delimited with a space and 2 and ' (apostrophe)
+	 * are used to indicate turning a face twice or turning counter-clockwise.
+	 * Standard notation is used (F B U D R L)
+	 */
+	public void runAlg(String alg) {
+		String[] toks = alg.split(" ");
+		String temp;
+		FaceName face;
+		for(int i = 0; i < toks.length; i++) {
+			temp = toks[i];
+			
+			face = processMove(temp.charAt(0));
+			
+			//check if the input is valid
+			if(face == null | temp.length() > 2) {
+				System.out.println("Invalid input.");
+				return;
+			}
+			
+			//if there is only one character, then it can only be clockwise
+			if(temp.length() == 1) turnFace(face);
+			//check for other two move types
+			else if(temp.charAt(1) == '2') turnFace2(face);
+			else if(temp.charAt(1) == '\'') turnCounter(face);
+			else {
+				System.out.println("Invalid input.");
+				return;
+			}
+		}
+	}
+	
+	//maps a character to a facename type
+	//returns null if not a valid character
+	private FaceName processMove(char c) {
+		if(c == 'F') return FaceName.FRONT;
+		else if(c == 'B') return FaceName.BACK;
+		else if(c == 'U') return FaceName.UP;
+		else if(c == 'D') return FaceName.DOWN;
+		else if(c == 'L') return FaceName.LEFT;
+		else if(c == 'R') return FaceName.RIGHT;
+		
+		else return null;
+	}
+	
 	//generic face turn for public use
-	public void turnFace(FaceName fn) {
+	private void turnFace(FaceName fn) {
 		if(fn == FaceName.UP) turnU();
 		else if(fn == FaceName.DOWN) turnD();
 		else if(fn == FaceName.FRONT) turnF();
@@ -33,13 +78,13 @@ public class Cube3 {
 	}
 	
 	//turn a face twice
-	public void turnFace2(FaceName fn) {
+	private void turnFace2(FaceName fn) {
 		turnFace(fn);
 		turnFace(fn);
 	}
 	
 	//turn a face counter-clockwise
-	public void turnCounter(FaceName fn) {
+	private void turnCounter(FaceName fn) {
 		turnFace(fn);
 		turnFace(fn);
 		turnFace(fn);
