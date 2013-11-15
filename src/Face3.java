@@ -1,13 +1,13 @@
 
 public class Face3 {
-	private Color[][] face;
+	public Color[][] face;
 	private int N;
 	private FaceName label;
 	
 	
 	//for now, assume faces are squares
-	public Face3(Color c, FaceName f) {
-		N = 3;
+	public Face3(Color c, FaceName f, int n) {
+		N = n;
 		face = new Color[N][N];
 		
 		//initialize face to be entirely one color
@@ -76,7 +76,7 @@ public class Face3 {
 	public void rotate(int n, int x) {
 		if(n <= 1) return; //stopping case
 		Color temp;
-		int hi = n-x-1;
+		int hi = n+x-1;
 		
 		//first rotate the corners
 		temp = face[x][x];
