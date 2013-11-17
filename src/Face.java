@@ -24,15 +24,19 @@ public class Face {
 		return label;
 	}
 	
+	public void setLabel(FaceName fn) {
+		label = fn;
+	}
+	
 	public Color[] sendSide(FaceName side) {
 		Color[] sides = new Color[N];
 		
 		//populate based on which side is input
 		for(int i = 0; i < N; i++) {
-			if(side == FaceName.UP) sides[i] = face[0][i];
-			else if(side == FaceName.DOWN) sides[i] = face[N-1][i];
-			else if(side == FaceName.LEFT) sides[i] = face[i][0];
-			else if(side == FaceName.RIGHT) sides[i] = face[i][N-1];
+			if(side == FaceName.Up) sides[i] = face[0][i];
+			else if(side == FaceName.Down) sides[i] = face[N-1][i];
+			else if(side == FaceName.Left) sides[i] = face[i][0];
+			else if(side == FaceName.Right) sides[i] = face[i][N-1];
 			else {
 				System.out.println("SOMETHING WENT WRONG.");
 				System.exit(0);
@@ -55,10 +59,10 @@ public class Face {
 		else colors = cols;
 		
 		for(int i = 0; i < N; i++) {
-			if(side == FaceName.UP) face[0][i] = colors[i];
-			else if(side == FaceName.DOWN) face[N-1][i] = colors[i];
-			else if(side == FaceName.LEFT) face[i][0] = colors[i];
-			else if(side == FaceName.RIGHT) face[i][N-1] = colors[i];
+			if(side == FaceName.Up) face[0][i] = colors[i];
+			else if(side == FaceName.Down) face[N-1][i] = colors[i];
+			else if(side == FaceName.Left) face[i][0] = colors[i];
+			else if(side == FaceName.Right) face[i][N-1] = colors[i];
 			else {
 				System.out.println("SOMETHING WENT WRONG.");
 				System.exit(0);

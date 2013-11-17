@@ -12,12 +12,13 @@ For the Up and Down faces, the back of the face on the cube is the top of the ar
 Things that have been done:
 - The cube can take a string input and run those moves on the cube.
 - String input can be delimited by anything. Default is space.
-- Cube prints out faces
+- Cube prints out faces.
 - Generalized functions for multiple sizes. Tested on 3x3, 4x4.
+- Cube rotations implemented as public functions.
 
 
 Things to be done:
-- Allow for cube rotations.
+- Generalized cube rotations. Need counter-clock and twice.
 - Create a scrambler.
 - Find a more elegant way to turn the faces that doesn't involve hard-coding things if possible.
 - Test generalized functions on higher-order cubes (5x5+).

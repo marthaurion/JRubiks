@@ -6,12 +6,12 @@ public class Cube {
 		cube = new Face[6];
 		
 		//manually code values for faces so the relationships of colors is right
-		cube[0] = new Face(Color.WHITE, FaceName.UP, n);
-		cube[1] = new Face(Color.YELLOW, FaceName.DOWN, n);
-		cube[2] = new Face(Color.GREEN, FaceName.FRONT, n);
-		cube[3] = new Face(Color.BLUE, FaceName.BACK, n);
-		cube[4] = new Face(Color.ORANGE, FaceName.LEFT, n);
-		cube[5] = new Face(Color.RED, FaceName.RIGHT, n);
+		cube[FaceName.Up.getValue()] = new Face(Color.White, FaceName.Up, n);
+		cube[FaceName.Down.getValue()] = new Face(Color.Yellow, FaceName.Down, n);
+		cube[FaceName.Front.getValue()] = new Face(Color.Green, FaceName.Front, n);
+		cube[FaceName.Back.getValue()] = new Face(Color.Blue, FaceName.Back, n);
+		cube[FaceName.Left.getValue()] = new Face(Color.Orange, FaceName.Left, n);
+		cube[FaceName.Right.getValue()] = new Face(Color.Red, FaceName.Right, n);
 	}
 	
 	public Face getFace(FaceName fn) {
@@ -59,24 +59,24 @@ public class Cube {
 	//maps a character to a facename type
 	//returns null if not a valid character
 	private FaceName processMove(char c) {
-		if(c == 'F') return FaceName.FRONT;
-		else if(c == 'B') return FaceName.BACK;
-		else if(c == 'U') return FaceName.UP;
-		else if(c == 'D') return FaceName.DOWN;
-		else if(c == 'L') return FaceName.LEFT;
-		else if(c == 'R') return FaceName.RIGHT;
+		if(c == 'F') return FaceName.Front;
+		else if(c == 'B') return FaceName.Back;
+		else if(c == 'U') return FaceName.Up;
+		else if(c == 'D') return FaceName.Down;
+		else if(c == 'L') return FaceName.Left;
+		else if(c == 'R') return FaceName.Right;
 		
 		else return null;
 	}
 	
 	//generic face turn for public use
 	private void turnFace(FaceName fn) {
-		if(fn == FaceName.UP) turnU();
-		else if(fn == FaceName.DOWN) turnD();
-		else if(fn == FaceName.FRONT) turnF();
-		else if(fn == FaceName.BACK) turnB();
-		else if(fn == FaceName.LEFT) turnL();
-		else if(fn == FaceName.RIGHT) turnR();
+		if(fn == FaceName.Up) turnU();
+		else if(fn == FaceName.Down) turnD();
+		else if(fn == FaceName.Front) turnF();
+		else if(fn == FaceName.Back) turnB();
+		else if(fn == FaceName.Left) turnL();
+		else if(fn == FaceName.Right) turnR();
 		else {
 			System.out.println("SOMETHING WENT WRONG.");
 			System.exit(0);
@@ -96,77 +96,158 @@ public class Cube {
 		turnFace(fn);
 	}
 	
+	//private functions for cube rotations
+	
+	//rotate the cube along the x-axis, similar to an R turn
+	public void rotateX() {
+		cube[FaceName.Right.getValue()].rotate();
+		cube[FaceName.Left.getValue()].rotate();
+		cube[FaceName.Left.getValue()].rotate();
+		cube[FaceName.Left.getValue()].rotate();
+		
+		//move faces around
+		Face temp = cube[FaceName.Front.getValue()];
+		cube[FaceName.Front.getValue()] = cube[FaceName.Down.getValue()];
+		cube[FaceName.Down.getValue()] = cube[FaceName.Back.getValue()];
+		cube[FaceName.Back.getValue()] = cube[FaceName.Up.getValue()];
+		cube[FaceName.Up.getValue()] = temp;
+		
+		//these two faces will flip
+		cube[FaceName.Back.getValue()].rotate();
+		cube[FaceName.Back.getValue()].rotate();
+		cube[FaceName.Front.getValue()].rotate();
+		cube[FaceName.Front.getValue()].rotate();
+		
+		//update labels
+		cube[FaceName.Front.getValue()].setLabel(FaceName.Front);
+		cube[FaceName.Down.getValue()].setLabel(FaceName.Down);
+		cube[FaceName.Back.getValue()].setLabel(FaceName.Back);
+		cube[FaceName.Up.getValue()].setLabel(FaceName.Up);
+	}
+	
+	//rotate the cube along the y-axis, similar to a U turn
+	public void rotateY() {
+		cube[FaceName.Up.getValue()].rotate();
+		cube[FaceName.Down.getValue()].rotate();
+		cube[FaceName.Down.getValue()].rotate();
+		cube[FaceName.Down.getValue()].rotate();
+		
+		//move faces around
+		Face temp = cube[FaceName.Front.getValue()];
+		cube[FaceName.Front.getValue()] = cube[FaceName.Right.getValue()];
+		cube[FaceName.Right.getValue()] = cube[FaceName.Back.getValue()];
+		cube[FaceName.Back.getValue()] = cube[FaceName.Left.getValue()];
+		cube[FaceName.Left.getValue()] = temp;
+		
+		//update labels
+		cube[FaceName.Front.getValue()].setLabel(FaceName.Front);
+		cube[FaceName.Left.getValue()].setLabel(FaceName.Left);
+		cube[FaceName.Back.getValue()].setLabel(FaceName.Back);
+		cube[FaceName.Right.getValue()].setLabel(FaceName.Right);
+	}
+	
+	//rotate the cube along the z-axis, similar to an F turn
+	public void rotateZ() {
+		cube[FaceName.Front.getValue()].rotate();
+		cube[FaceName.Back.getValue()].rotate();
+		cube[FaceName.Back.getValue()].rotate();
+		cube[FaceName.Back.getValue()].rotate();
+		
+		//move faces around
+		Face temp = cube[FaceName.Up.getValue()];
+		cube[FaceName.Up.getValue()] = cube[FaceName.Left.getValue()];
+		cube[FaceName.Left.getValue()] = cube[FaceName.Down.getValue()];
+		cube[FaceName.Down.getValue()] = cube[FaceName.Right.getValue()];
+		cube[FaceName.Right.getValue()] = temp;
+		
+		//the faces will flip
+		cube[FaceName.Right.getValue()].rotate();
+		cube[FaceName.Up.getValue()].rotate();
+		cube[FaceName.Down.getValue()].rotate();
+		cube[FaceName.Down.getValue()].rotate();
+		cube[FaceName.Down.getValue()].rotate();
+		cube[FaceName.Left.getValue()].rotate();
+		cube[FaceName.Left.getValue()].rotate();
+		cube[FaceName.Left.getValue()].rotate();
+		
+		//update labels
+		cube[FaceName.Up.getValue()].setLabel(FaceName.Up);
+		cube[FaceName.Left.getValue()].setLabel(FaceName.Left);
+		cube[FaceName.Down.getValue()].setLabel(FaceName.Down);
+		cube[FaceName.Right.getValue()].setLabel(FaceName.Right);
+	}
+	
 	//private functions to turn faces
 	
 	//turns the top face clockwise
 	private void turnU() {
 		Color[] temp;
-		cube[0].rotate();
-		temp = cube[2].sendSide(FaceName.UP);
-		cube[2].receiveSide(cube[5].sendSide(FaceName.UP), FaceName.UP, 0);
-		cube[5].receiveSide(cube[3].sendSide(FaceName.UP), FaceName.UP, 0);
-		cube[3].receiveSide(cube[4].sendSide(FaceName.UP), FaceName.UP, 0);
-		cube[4].receiveSide(temp, FaceName.UP, 0);
+		cube[FaceName.Up.getValue()].rotate();
+		temp = cube[FaceName.Front.getValue()].sendSide(FaceName.Up);
+		cube[FaceName.Front.getValue()].receiveSide(cube[FaceName.Right.getValue()].sendSide(FaceName.Up), FaceName.Up, 0);
+		cube[FaceName.Right.getValue()].receiveSide(cube[FaceName.Back.getValue()].sendSide(FaceName.Up), FaceName.Up, 0);
+		cube[FaceName.Back.getValue()].receiveSide(cube[FaceName.Left.getValue()].sendSide(FaceName.Up), FaceName.Up, 0);
+		cube[FaceName.Left.getValue()].receiveSide(temp, FaceName.Up, 0);
 	}
 	
 	//turns the front face clockwise
 	private void turnF() {
 		Color[] temp;
-		cube[2].rotate();
+		cube[FaceName.Front.getValue()].rotate();
 		
-		temp = cube[0].sendSide(FaceName.DOWN);
-		cube[0].receiveSide(cube[4].sendSide(FaceName.RIGHT), FaceName.DOWN, -1);
-		cube[4].receiveSide(cube[1].sendSide(FaceName.DOWN), FaceName.RIGHT, -1);
-		cube[1].receiveSide(cube[5].sendSide(FaceName.LEFT), FaceName.DOWN, 0);
-		cube[5].receiveSide(temp, FaceName.LEFT, 0);
+		temp = cube[FaceName.Up.getValue()].sendSide(FaceName.Down);
+		cube[FaceName.Up.getValue()].receiveSide(cube[FaceName.Left.getValue()].sendSide(FaceName.Right), FaceName.Down, -1);
+		cube[FaceName.Left.getValue()].receiveSide(cube[FaceName.Down.getValue()].sendSide(FaceName.Down), FaceName.Right, -1);
+		cube[FaceName.Down.getValue()].receiveSide(cube[FaceName.Right.getValue()].sendSide(FaceName.Left), FaceName.Down, 0);
+		cube[FaceName.Right.getValue()].receiveSide(temp, FaceName.Left, 0);
 	}
 	
 	//turns the left face clockwise
 	private void turnL() {
 		Color[] temp;
-		cube[4].rotate();
+		cube[FaceName.Left.getValue()].rotate();
 		
-		temp = cube[0].sendSide(FaceName.LEFT);
-		cube[0].receiveSide(cube[3].sendSide(FaceName.RIGHT), FaceName.LEFT, -1);
-		cube[3].receiveSide(cube[1].sendSide(FaceName.RIGHT), FaceName.RIGHT, 0);
-		cube[1].receiveSide(cube[2].sendSide(FaceName.LEFT), FaceName.RIGHT, -1);
-		cube[2].receiveSide(temp, FaceName.LEFT, 0);
+		temp = cube[FaceName.Up.getValue()].sendSide(FaceName.Left);
+		cube[FaceName.Up.getValue()].receiveSide(cube[FaceName.Back.getValue()].sendSide(FaceName.Right), FaceName.Left, -1);
+		cube[FaceName.Back.getValue()].receiveSide(cube[FaceName.Down.getValue()].sendSide(FaceName.Right), FaceName.Right, 0);
+		cube[FaceName.Down.getValue()].receiveSide(cube[FaceName.Front.getValue()].sendSide(FaceName.Left), FaceName.Right, -1);
+		cube[FaceName.Front.getValue()].receiveSide(temp, FaceName.Left, 0);
 	}
 	
 	//turns the right face clockwise
 	private void turnR() {
 		Color[] temp;
-		cube[5].rotate();
+		cube[FaceName.Right.getValue()].rotate();
 		
-		temp = cube[0].sendSide(FaceName.RIGHT);
-		cube[0].receiveSide(cube[2].sendSide(FaceName.RIGHT), FaceName.RIGHT, 0);
-		cube[2].receiveSide(cube[1].sendSide(FaceName.LEFT), FaceName.RIGHT, -1);
-		cube[1].receiveSide(cube[3].sendSide(FaceName.LEFT), FaceName.LEFT, 0);
-		cube[3].receiveSide(temp, FaceName.LEFT, -1);
+		temp = cube[FaceName.Up.getValue()].sendSide(FaceName.Right);
+		cube[FaceName.Up.getValue()].receiveSide(cube[FaceName.Front.getValue()].sendSide(FaceName.Right), FaceName.Right, 0);
+		cube[FaceName.Front.getValue()].receiveSide(cube[FaceName.Down.getValue()].sendSide(FaceName.Left), FaceName.Right, -1);
+		cube[FaceName.Down.getValue()].receiveSide(cube[FaceName.Back.getValue()].sendSide(FaceName.Left), FaceName.Left, 0);
+		cube[FaceName.Back.getValue()].receiveSide(temp, FaceName.Left, -1);
 	}
 	
 	//turns the back face clockwise
 	private void turnB() {
 		Color[] temp;
-		cube[3].rotate();
+		cube[FaceName.Back.getValue()].rotate();
 		
-		temp = cube[0].sendSide(FaceName.UP);
-		cube[0].receiveSide(cube[5].sendSide(FaceName.RIGHT), FaceName.UP, 0);
-		cube[5].receiveSide(cube[1].sendSide(FaceName.UP), FaceName.RIGHT, 0);
-		cube[1].receiveSide(cube[4].sendSide(FaceName.LEFT), FaceName.UP, -1);
-		cube[4].receiveSide(temp, FaceName.LEFT, -1);
+		temp = cube[FaceName.Up.getValue()].sendSide(FaceName.Up);
+		cube[FaceName.Up.getValue()].receiveSide(cube[FaceName.Right.getValue()].sendSide(FaceName.Right), FaceName.Up, 0);
+		cube[FaceName.Right.getValue()].receiveSide(cube[FaceName.Down.getValue()].sendSide(FaceName.Up), FaceName.Right, 0);
+		cube[FaceName.Down.getValue()].receiveSide(cube[FaceName.Left.getValue()].sendSide(FaceName.Left), FaceName.Up, -1);
+		cube[FaceName.Left.getValue()].receiveSide(temp, FaceName.Left, -1);
 	}
 	
 	//turns the down face clockwise
 	private void turnD() {
 		Color[] temp;
-		cube[1].rotate();
+		cube[FaceName.Down.getValue()].rotate();
 		
-		temp = cube[2].sendSide(FaceName.DOWN);
-		cube[2].receiveSide(cube[4].sendSide(FaceName.DOWN), FaceName.DOWN, 0);
-		cube[4].receiveSide(cube[3].sendSide(FaceName.DOWN), FaceName.DOWN, 0);
-		cube[3].receiveSide(cube[5].sendSide(FaceName.DOWN), FaceName.DOWN, 0);
-		cube[5].receiveSide(temp, FaceName.DOWN, 0);
+		temp = cube[FaceName.Front.getValue()].sendSide(FaceName.Down);
+		cube[FaceName.Front.getValue()].receiveSide(cube[FaceName.Left.getValue()].sendSide(FaceName.Down), FaceName.Down, 0);
+		cube[FaceName.Left.getValue()].receiveSide(cube[FaceName.Back.getValue()].sendSide(FaceName.Down), FaceName.Down, 0);
+		cube[FaceName.Back.getValue()].receiveSide(cube[FaceName.Right.getValue()].sendSide(FaceName.Down), FaceName.Down, 0);
+		cube[FaceName.Right.getValue()].receiveSide(temp, FaceName.Down, 0);
 	}
 	
 	public void printCube() {
