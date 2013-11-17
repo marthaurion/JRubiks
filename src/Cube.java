@@ -32,44 +32,70 @@ public class Cube {
 	public void runAlg(String alg, String del) {
 		String[] toks = alg.split(del);
 		String temp;
-		FaceName face;
+		int face;
 		for(int i = 0; i < toks.length; i++) {
 			temp = toks[i];
 			
-			face = processMove(temp.charAt(0));
-			
-			//check if the input is valid
-			if(face == null | temp.length() > 2) {
-				System.out.println("Invalid input.");
+			//quit out if too long
+			if(temp.length() > 2) {
+				System.out.println("Invalid input: " + temp);
 				return;
 			}
 			
-			//if there is only one character, then it can only be clockwise
-			if(temp.length() == 1) turnFace(face);
-			//check for other two move types
-			else if(temp.charAt(1) == '2') turnFace2(face);
-			else if(temp.charAt(1) == '\'') turnCounter(face);
-			else {
-				System.out.println("Invalid input.");
+			face = processMove(temp);
+			
+			//processMove returns 0 if there was an error
+			if(face == 0) {
+				System.out.println("Invalid input: " + temp);
 				return;
 			}
 		}
 	}
 	
-	//maps a character to a facename type
-	//returns null if not a valid character
-	private FaceName processMove(char c) {
-		if(c == 'F') return FaceName.Front;
-		else if(c == 'B') return FaceName.Back;
-		else if(c == 'U') return FaceName.Up;
-		else if(c == 'D') return FaceName.Down;
-		else if(c == 'L') return FaceName.Left;
-		else if(c == 'R') return FaceName.Right;
+	//takes the move string and runs it on the cube
+	//return 1 if successful and 0 if error
+	private int processMove(String in) {
+		FaceName fn = null;
+		Axis ax = null;
+		if(in.charAt(0) == 'F') fn = FaceName.Front;
+		else if(in.charAt(0) == 'B') fn = FaceName.Back;
+		else if(in.charAt(0) == 'U') fn = FaceName.Up;
+		else if(in.charAt(0) == 'D') fn = FaceName.Down;
+		else if(in.charAt(0) == 'L') fn = FaceName.Left;
+		else if(in.charAt(0) == 'R') fn = FaceName.Right;
+		else if(in.charAt(0) == 'x') ax = Axis.X;
+		else if(in.charAt(0) == 'y') ax = Axis.Y;
+		else if(in.charAt(0) == 'z') ax = Axis.Z;
+		//return error if first character isn't valid
+		else return 0;
 		
-		else return null;
+		//if there is only one character, then it can only be clockwise
+		if(in.length() == 1) {
+			if(fn != null) turnFace(fn);
+			else if(ax != null) rotate(ax);
+			//return error is both are null or only one is null
+			else return 0;
+		}
+		//check for other two move types
+		else if(in.charAt(1) == '2') {
+			if(fn != null && ax == null) turnFace2(fn);
+			else if(ax != null && fn == null) rotate2(ax);
+			//return error is both are null or only one is null
+			else return 0;
+		}
+		else if(in.charAt(1) == '\'') {
+			if(fn != null && ax == null) turnCounter(fn);
+			else if(ax != null && fn == null) rotateCounter(ax);
+			//return error is both are null or only one is null
+			else return 0;
+		}
+		//returns error if the second character isn't an apostrophe or 2
+		else return 0;
+		
+		return 1;
 	}
 	
-	//generic face turn for public use
+	//generic face turn
 	private void turnFace(FaceName fn) {
 		if(fn == FaceName.Up) turnU();
 		else if(fn == FaceName.Down) turnD();
@@ -91,15 +117,37 @@ public class Cube {
 	
 	//turn a face counter-clockwise
 	private void turnCounter(FaceName fn) {
+		turnFace2(fn);
 		turnFace(fn);
-		turnFace(fn);
-		turnFace(fn);
+	}
+	
+	//private functions for rotating cube
+	private void rotate(Axis a) {
+		if(a == Axis.X) rotateX();
+		else if(a == Axis.Y) rotateY();
+		else if(a == Axis.Z) rotateZ();
+		else {
+			System.out.println("SOMETHING WENT WRONG.");
+			System.exit(0);
+		}
+	}
+	
+	//turn a face twice
+	private void rotate2(Axis a) {
+		rotate(a);
+		rotate(a);
+	}
+	
+	//turn a face counter-clockwise
+	private void rotateCounter(Axis a) {
+		rotate2(a);
+		rotate(a);
 	}
 	
 	//private functions for cube rotations
 	
 	//rotate the cube along the x-axis, similar to an R turn
-	public void rotateX() {
+	private void rotateX() {
 		cube[FaceName.Right.getValue()].rotate();
 		cube[FaceName.Left.getValue()].rotate();
 		cube[FaceName.Left.getValue()].rotate();
@@ -126,7 +174,7 @@ public class Cube {
 	}
 	
 	//rotate the cube along the y-axis, similar to a U turn
-	public void rotateY() {
+	private void rotateY() {
 		cube[FaceName.Up.getValue()].rotate();
 		cube[FaceName.Down.getValue()].rotate();
 		cube[FaceName.Down.getValue()].rotate();
@@ -147,7 +195,7 @@ public class Cube {
 	}
 	
 	//rotate the cube along the z-axis, similar to an F turn
-	public void rotateZ() {
+	private void rotateZ() {
 		cube[FaceName.Front.getValue()].rotate();
 		cube[FaceName.Back.getValue()].rotate();
 		cube[FaceName.Back.getValue()].rotate();

@@ -1,7 +1,7 @@
 JRubiks
 =======
 
-for java implementation of a rubik's cube
+Java implementation of a Rubik's Cube
 
 Note: The way I have it now, the Up face and Down face arrays are sort of parallel.
 The four other faces are all parallel to each other going around.
@@ -14,13 +14,10 @@ Things that have been done:
 - String input can be delimited by anything. Default is space.
 - Cube prints out faces.
 - Generalized functions for multiple sizes. Tested on 3x3, 4x4.
-- Cube rotations implemented as public functions.
+- Cube rotations implemented and added to valid notation allowed in input algorithms.
 
 
 Things to be done:
-- Generalized cube rotations. Need counter-clock and twice.
 - Create a scrambler.
-- Find a more elegant way to turn the faces that doesn't involve hard-coding things if possible.
 - Test generalized functions on higher-order cubes (5x5+).
 - Create a more visual representation of the cube.
-- Allow different types of delimiters for algorithm input.
