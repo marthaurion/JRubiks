@@ -6,5 +6,12 @@ public enum FaceName {
 	private final int id;
 	
 	FaceName(int id) { this.id = id; }
-	public int getValue() { return id; }
+	
+	public int getValue() {
+		return id;
+	}
+	
+	public String getNotation() {
+		return toString().substring(0,1);
+	}
 }
