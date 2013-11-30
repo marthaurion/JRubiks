@@ -15,7 +15,7 @@ Things that have been done:
 - Cube prints out faces.
 - Generalized functions for multiple sizes. Tested on 3x3, 4x4.
 - Cube rotations implemented and added to valid notation allowed in input algorithms.
-- Created a naive scrambler.
+- Created a naive scrambler. It should no longer allow moves that undo previous moves.
 
 Things to be done:
 - Add rules to the scrambler to create better scrambles.

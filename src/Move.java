@@ -8,6 +8,10 @@ public class Move {
 		dir = d;
 	}
 	
+	public FaceName getFace() {
+		return face;
+	}
+	
 	public String getNotation() {
 		return face.getNotation()+dir.getNotation();
 	}

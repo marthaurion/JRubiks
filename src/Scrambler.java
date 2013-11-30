@@ -36,6 +36,50 @@ public class Scrambler {
 	
 	//need to make it so moves don't undo themselves
 	private Move generateMove(ArrayList<Move> moves) {
+		Move m = null;
+		
+		boolean valid = false;
+		
+		if(moves.size() == 0) return getRandomMove(); //the first move can be anything
+		while(!valid) {
+			m = getRandomMove();
+			
+			//check whether the previous move is the same face
+			if(moves.get(moves.size() - 1).getFace() == m.getFace()) continue;
+			
+			//now check whether a move since the last time this move was made has "moved" this move's face
+			else {
+				valid = true; //this will become false if the loop finds something
+				
+				//loop through and find the last move that involved
+				for(int i = moves.size()-1; i >= 0; i--) {
+					//if you find a face that's the same, the move isn't valid
+					if(moves.get(i).getFace() == m.getFace()) {
+						valid = false;
+						break;
+					}
+					
+					//if the face opposite of the current face is moved,
+					//the current face isn't changed, so keep searching back
+					else if(moves.get(i).getFace() == m.getFace().opposite()) continue;
+					
+					//otherwise, a move is found that mutates
+					else {
+						valid = true;
+						break;
+					}
+				}
+				
+				//if the loop reaches the first element of the input,
+				//then it will return valid as true, which is fine
+			}
+		}
+		
+		return m;
+	}
+	
+	//generates a random move
+	private Move getRandomMove() {
 		FaceName face;
 		Direction dir;
 		Random r = new Random();
