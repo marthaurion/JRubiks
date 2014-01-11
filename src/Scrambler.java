@@ -3,19 +3,12 @@ import java.util.Random;
 
 public class Scrambler {
 	private int numMoves;
-	private String scramble;
 	
 	public Scrambler() {
 		numMoves = 20;
-		scramble = null;
 	}
 	
-	public String getScramble() {
-		if(scramble != null) return scramble;
-		else return "No scramble generated.";
-	}
-	
-	public void generateScramble() {
+	public String generateScramble() {
 		
 		//generate a list of moves
 		ArrayList<Move> moves = new ArrayList<Move>();
@@ -31,7 +24,7 @@ public class Scrambler {
 		}
 		st.append(moves.get(moves.size()-1).getNotation());
 		
-		scramble = st.toString();
+		return st.toString();
 	}
 	
 	//need to make it so moves don't undo themselves
