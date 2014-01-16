@@ -1,5 +1,5 @@
 
-public class Test {
+public class RubiksDriver {
 
 	public static void main(String[] args) {
 		Cube cube = new Cube(3);
